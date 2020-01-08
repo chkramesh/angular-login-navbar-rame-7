@@ -1,25 +1,22 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-root',
-  template: `
-    <div style="margin: 40px">
-      <button (click)="throwError()">Error</button>
-      <button (click)="throwHttpError()">HTTP</button>
-    </div>
-  `
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
-  constructor(private http: HttpClient) {
-  }
-  
-  throwError(){
-    throw new Error('My Pretty Error');
-  }
-
-  throwHttpError(){
-    this.http.get('urlhere').subscribe();
-  }
+    constructor(
+        iconRegistry: MatIconRegistry,
+        sanitizer: DomSanitizer
+      ) {
+        iconRegistry.addSvgIcon(
+          'lemon',
+          sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/lemon.svg')
+        )
+      }
+    
 }
